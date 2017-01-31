@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ConnectionList connectionList = repo.searchConnections("Buchs SG", "Zürich HB");
     */
-    //
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

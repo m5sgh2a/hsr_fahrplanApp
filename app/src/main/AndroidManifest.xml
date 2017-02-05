@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="group9.hsr.ch.businesstravelagent">
+    package="group9.hsr.ch.businesstravelagent"
+    android:revisionCode="1"
+    android:versionName="1.0.0">
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="21"/>
 
     <application
         android:allowBackup="true"
@@ -8,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity" android:label="Business Travel Agent">
+        <activity android:name=".Controller.MainActivity" android:label="Business Travel Agent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

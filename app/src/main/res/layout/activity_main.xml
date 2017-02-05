@@ -6,11 +6,22 @@
     android:layout_height="match_parent"
     android:padding="10dp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/app_menu"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:background="@color/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
+
         <EditText
             android:id="@+id/startLocationText"
             android:layout_width="0dp"
@@ -78,12 +89,4 @@
         android:background="@color/colorPrimary"
         android:textColor="#FFFFFF"
         android:text="Suchen"/>
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/app_menu"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        android:background="@color/colorPrimary">
-    </android.support.v7.widget.Toolbar>
 </LinearLayout>

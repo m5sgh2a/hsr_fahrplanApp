@@ -1,9 +1,11 @@
-package group9.hsr.ch.businesstravelagent;
+package group9.hsr.ch.businesstravelagent.Controller;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import group9.hsr.ch.businesstravelagent.R;
 
 /**
  * Created by station on 05/02/2017.

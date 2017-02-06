@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import java.util.Locale;
@@ -95,6 +96,22 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
         setSupportActionBar(myToolbar);
+
+        ImageButton oppositeDirection = (ImageButton)findViewById(R.id.oppositeDirectionButton);
+        oppositeDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText start = (EditText)findViewById(R.id.startLocationText);
+                EditText end = (EditText)findViewById(R.id.endLocationText);
+
+                if (start.getText().toString().length() > 0 && end.getText().toString().length() > 0)
+                {
+                    String startText = start.getText().toString();
+                    start.setText(end.getText().toString());
+                    end.setText(startText);
+                }
+            }
+        });
     }
 
     @Override

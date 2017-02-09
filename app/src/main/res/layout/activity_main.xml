@@ -115,4 +115,9 @@
         android:text="Suchen"
         android:drawableLeft="@drawable/ic_search"
         android:layout_margin="5dp"/>
+
+    <ListView
+        android:id="@+id/transportConnectionListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         transportTime.Register();
         transportTime.ShowCurrentTimeOnButton();
         oppositeDirection.Register();
-        //transportSearch.Register();
+        transportSearch.Register();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
         myToolbar.setTitleTextAppearance(this, R.style.ActionToolbar);

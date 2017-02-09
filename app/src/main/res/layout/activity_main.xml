@@ -90,7 +90,7 @@
             android:text="Datum" />
 
         <Button
-            android:id="@+id/connectionTimButton"
+            android:id="@+id/connectionTimeButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -107,10 +107,11 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/connectionSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:textStyle="bold"
         android:text="Suchen"
-        android:textColor="#FFFFFF" />
+        android:drawableLeft="@drawable/ic_search"/>
 </LinearLayout>

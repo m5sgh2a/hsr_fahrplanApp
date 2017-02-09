@@ -2,25 +2,24 @@ package group9.hsr.ch.businesstravelagent.Model;
 
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import group9.hsr.ch.businesstravelagent.Controller.MainActivity;
 import group9.hsr.ch.businesstravelagent.R;
 
-public class ConnectionDate {
+public class TransportDate {
 
     private MainActivity mainActivity = null;
     private HelperDate helperDate = new HelperDate();
     private final String dateFormat = "EEE dd.MM.yyyy";
 
-    public ConnectionDate(MainActivity mainActivity) {
+    public TransportDate(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
     private Button GetDateButton() {
-        return (Button) mainActivity.findViewById(R.id.connectionDateButton);
+        return (Button) mainActivity.findViewById(R.id.transportDateButton);
     }
 
     public void ShowCurrentDateOnButton() {;

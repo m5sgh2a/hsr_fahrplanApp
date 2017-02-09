@@ -5,22 +5,21 @@ import android.icu.util.Calendar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
-
 import group9.hsr.ch.businesstravelagent.Controller.MainActivity;
 import group9.hsr.ch.businesstravelagent.R;
 
-public class ConnectionTime {
+public class TransportTime {
 
     private MainActivity mainActivity = null;
     private HelperDate helperDate = new HelperDate();
     private final String dateFormat = "HH:mm";
 
-    public ConnectionTime(MainActivity mainActivity) {
+    public TransportTime(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
 
     private Button GetDateButton() {
-        return (Button) mainActivity.findViewById(R.id.connectionTimeButton);
+        return (Button) mainActivity.findViewById(R.id.transportTimeButton);
     }
 
     public void ShowCurrentTimeOnButton() {;

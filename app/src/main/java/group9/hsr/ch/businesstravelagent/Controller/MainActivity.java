@@ -2,43 +2,27 @@ package group9.hsr.ch.businesstravelagent.Controller;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import group9.hsr.ch.businesstravelagent.Model.ConnectionDate;
-import group9.hsr.ch.businesstravelagent.Model.ConnectionTime;
+import group9.hsr.ch.businesstravelagent.Model.TransportDate;
+import group9.hsr.ch.businesstravelagent.Model.TransportTime;
 import group9.hsr.ch.businesstravelagent.Model.OppositeDirection;
 import group9.hsr.ch.businesstravelagent.R;
 
 public class MainActivity extends AppCompatActivity {
-    /*private IOpenTransportRepository repo;
 
-    public MainActivity() throws OpenDataTransportException {
-        repo = OpenTransportRepositoryFactory.CreateLocalOpenTransportRepository();
-    }
-
-    ConnectionList connectionList = repo.searchConnections("Buchs SG", "Zürich HB");
-    */
-
-    ConnectionDate connectionDate;
-    ConnectionTime connectionTime;
+    TransportDate transportDate;
+    TransportTime transportTime;
     OppositeDirection oppositeDirection;
 
     public MainActivity() {
-        connectionDate = new ConnectionDate(MainActivity.this);
-        connectionTime = new ConnectionTime(MainActivity.this);
+        transportDate = new TransportDate(MainActivity.this);
+        transportTime = new TransportTime(MainActivity.this);
         oppositeDirection = new OppositeDirection(MainActivity.this);
     }
 
@@ -47,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        connectionDate.Register();
-        connectionDate.ShowCurrentDateOnButton();
-        connectionTime.Register();
-        connectionTime.ShowCurrentTimeOnButton();
+        transportDate.Register();
+        transportDate.ShowCurrentDateOnButton();
+        transportTime.Register();
+        transportTime.ShowCurrentTimeOnButton();
         oppositeDirection.Register();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);

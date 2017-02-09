@@ -7,10 +7,6 @@ import android.support.v7.widget.Toolbar;
 
 import group9.hsr.ch.businesstravelagent.R;
 
-/**
- * Created by station on 05/02/2017.
- */
-
 public class AboutActivity extends AppCompatActivity
 {
     @Override
@@ -20,6 +16,7 @@ public class AboutActivity extends AppCompatActivity
         setContentView(R.layout.activity_about);
 
         Toolbar tb = (Toolbar) findViewById(R.id.app_menu);
+        tb.setTitleTextAppearance(this, R.style.ActionToolbar);
         setSupportActionBar(tb);
 
         ActionBar ab = getSupportActionBar();

@@ -2,8 +2,13 @@ package group9.hsr.ch.businesstravelagent.Controller;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         oppositeDirection.Register();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
+        myToolbar.setTitleTextAppearance(this, R.style.ActionToolbar);
         setSupportActionBar(myToolbar);
     }
 

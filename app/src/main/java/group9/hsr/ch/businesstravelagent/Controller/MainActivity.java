@@ -9,21 +9,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import group9.hsr.ch.businesstravelagent.Model.TransportConnection;
 import group9.hsr.ch.businesstravelagent.Model.TransportDate;
+import group9.hsr.ch.businesstravelagent.Model.TransportSearch;
 import group9.hsr.ch.businesstravelagent.Model.TransportTime;
 import group9.hsr.ch.businesstravelagent.Model.OppositeDirection;
 import group9.hsr.ch.businesstravelagent.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    TransportDate transportDate;
-    TransportTime transportTime;
-    OppositeDirection oppositeDirection;
+    private TransportDate transportDate;
+    private TransportTime transportTime;
+    private OppositeDirection oppositeDirection;
+    private TransportSearch transportSearch;
 
     public MainActivity() {
         transportDate = new TransportDate(MainActivity.this);
         transportTime = new TransportTime(MainActivity.this);
         oppositeDirection = new OppositeDirection(MainActivity.this);
+        transportSearch = new TransportSearch(MainActivity.this);
     }
 
     @Override
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         transportTime.Register();
         transportTime.ShowCurrentTimeOnButton();
         oppositeDirection.Register();
+        //transportSearch.Register();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
         myToolbar.setTitleTextAppearance(this, R.style.ActionToolbar);

@@ -9,12 +9,14 @@ public class TransportConnection {
 
     private IOpenTransportRepository repo;
 
-    public TransportConnection() throws OpenDataTransportException {
+    private void OpenRepository() {
         repo = OpenTransportRepositoryFactory.CreateLocalOpenTransportRepository();
     }
 
     public ConnectionList GetConnection(String startLocation, String endLocation) {
         try {
+            OpenRepository();
+
             return repo.searchConnections(startLocation, endLocation);
         } catch (OpenDataTransportException e) {
             return null;

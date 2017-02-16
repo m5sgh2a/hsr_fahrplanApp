@@ -13,111 +13,122 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <RelativeLayout
-            android:layout_width="36dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp">
-
-            <ImageButton
-                android:id="@+id/oppositeDirectionButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_oppositedirection" />
-        </RelativeLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp">
+
+                <ImageButton
+                    android:id="@+id/oppositeDirectionButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/ic_oppositedirection" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <EditText
+                        android:id="@+id/startLocationText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="2"
+                        android:ellipsize="end"
+                        android:hint="Start"
+                        android:inputType="textNoSuggestions"
+                        android:maxLines="1" />
+
+                    <Button
+                        android:id="@+id/nextStationButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_nextstation"
+                        android:text="In Nähe" />
+                </LinearLayout>
+
 
                 <EditText
-                    android:id="@+id/startLocationText"
-                    android:layout_width="0dp"
+                    android:id="@+id/endLocationText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="2"
                     android:ellipsize="end"
-                    android:hint="Start"
+                    android:hint="Ziel"
                     android:inputType="textNoSuggestions"
                     android:maxLines="1" />
-
-                <Button
-                    android:id="@+id/nextStationButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_nextstation"
-                    android:text="In Nähe" />
             </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/endLocationText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:hint="Ziel"
-                android:inputType="textNoSuggestions"
-                android:maxLines="1" />
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:padding="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/transportDateButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:drawableLeft="@drawable/ic_date"
+                android:text="Datum" />
+
+            <Button
+                android:id="@+id/transportTimeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:drawableLeft="@drawable/ic_time"
+                android:text="Zeit" />
+
+            <ToggleButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:textOff="An"
+                android:textOn="Ab" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/transportDateButton"
-            android:layout_width="0dp"
+            android:id="@+id/transportSearchButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:drawableLeft="@drawable/ic_date"
-            android:text="Datum" />
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_search"
+            android:text="Suchen"
+            android:textStyle="bold"></Button>
 
-        <Button
-            android:id="@+id/transportTimeButton"
-            android:layout_width="0dp"
+        <ProgressBar
+            android:id="@+id/transportSearchProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:drawableLeft="@drawable/ic_time"
-            android:text="Zeit" />
+            android:visibility="gone"/>
 
-        <ToggleButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:textOff="An"
-            android:textOn="Ab" />
+        <ListView
+            android:id="@+id/transportConnectionListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/transportSearchButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:text="Suchen"
-        android:drawableLeft="@drawable/ic_search"
-        android:layout_margin="5dp"/>
-
-    <ListView
-        android:id="@+id/transportConnectionListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

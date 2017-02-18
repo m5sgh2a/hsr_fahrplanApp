@@ -41,7 +41,7 @@ public class TransportConnection {
         StationList list =null;
         try{
             OpenRepository();
-            list = repo.findStations(location, type);
+            list = repository.findStations(location, type);
         }
         catch(OpenDataTransportException e)
         {

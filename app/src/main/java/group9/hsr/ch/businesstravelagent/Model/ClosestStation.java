@@ -1,44 +1,37 @@
 package group9.hsr.ch.businesstravelagent.Model;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import ch.schoeb.opendatatransport.model.Coordinate;
 import ch.schoeb.opendatatransport.model.StationList;
 import group9.hsr.ch.businesstravelagent.Controller.MainActivity;
 import group9.hsr.ch.businesstravelagent.R;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.identity.intents.Address;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import android.location.Location;
-import android.widget.ProgressBar;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import static java.lang.Math.abs;
-import static java.lang.Math.min;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
@@ -72,10 +65,8 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
 
     public void Register()
     {
+        ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         geocoder = new Geocoder(mainActivity, Locale.getDefault());
-
-        //ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-
         googleApiClient=new GoogleApiClient.Builder(mainActivity)
                 .addOnConnectionFailedListener(this)
                 .addConnectionCallbacks(this)
@@ -89,21 +80,14 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
         final Button nextStationButton = GetNextStationButton();
         nextStationButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                /*if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED)
-                {
-                    if(ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                            != PackageManager.PERMISSION_GRANTED)
-                    {*/
-                        Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                        TransportConnection transportConnection = new TransportConnection();
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    if (location != null) {
                         try {
-                            List<android.location.Address> list=geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),1);
-                            if(list != null && list.size()>0)
-                            {
+                            List<android.location.Address> list = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            if (list != null && list.size() > 0) {
                                 Coordinate coord = new Coordinate();
                                 coord.setY(location.getLongitude());
                                 coord.setX(location.getLatitude());
@@ -113,45 +97,53 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-                    /*}
-                }*/
+                    } else {
+                        AlertDialog.Builder dlgAlert = new AlertDialog.Builder(mainActivity);
+                        dlgAlert.setMessage("Start Google Maps first and search current location to initialize the Emulator localization.");
+                        dlgAlert.setTitle("Localization error");
+                        dlgAlert.setPositiveButton("OK", null);
+                        dlgAlert.setCancelable(false);
+                        dlgAlert.setPositiveButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mainActivity.finish();
+                                    }
+                                });
+                        dlgAlert.create().show();
+                    }
+                }
             }
         });
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         googleApiClient.connect();
     }
 
-    public void onPause()
-    {
+    public void onPause() {
         googleApiClient.disconnect();
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
-    {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         apiAvailability.getErrorDialog(mainActivity, connectionResult.getErrorCode(), 1).show();
     }
 
     @Override
-    public void onConnected(Bundle bundle)
-    {
+    public void onConnected(Bundle bundle) {
         //empty
     }
 
     @Override
-    public void onConnectionSuspended(int i)
-    {
+    public void onConnectionSuspended(int i) {
         //empty
     }
 
 
 
-    class ClosestStationWorker extends AsyncTask<Void, Void, StationList>
+
+    private class ClosestStationWorker extends AsyncTask<Void, Void, StationList>
     {
         String resultString;
         String locationName;
@@ -227,5 +219,4 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
             progressBar.setVisibility(View.GONE);
         }
     }
-
 }

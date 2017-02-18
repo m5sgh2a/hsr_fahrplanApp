@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 
+import ch.schoeb.opendatatransport.model.Coordinate;
 import ch.schoeb.opendatatransport.model.StationList;
 import group9.hsr.ch.businesstravelagent.Controller.MainActivity;
 import group9.hsr.ch.businesstravelagent.R;
@@ -32,8 +33,14 @@ import android.location.Location;
 import android.widget.ProgressBar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 /**
  * Created by station on 18/02/2017.
@@ -97,7 +104,10 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
                             List<android.location.Address> list=geocoder.getFromLocation(location.getLatitude(), location.getLongitude(),1);
                             if(list != null && list.size()>0)
                             {
-                                ClosestStationWorker worker = new ClosestStationWorker(list.get(0).getLocality(), "station");
+                                Coordinate coord = new Coordinate();
+                                coord.setY(location.getLongitude());
+                                coord.setX(location.getLatitude());
+                                ClosestStationWorker worker = new ClosestStationWorker(list.get(0).getLocality(), "station", coord);
                                 worker.execute();
                             }
                         } catch (IOException e) {
@@ -146,11 +156,13 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
         String resultString;
         String locationName;
         String type;
+        Coordinate startingPoint;
 
-        public ClosestStationWorker(String _locationName, String _type)
+        public ClosestStationWorker(String _locationName, String _type, Coordinate _startingPoint)
         {
             locationName = _locationName;
             type = _type;
+            startingPoint = _startingPoint;
         }
         @Override
         protected StationList doInBackground(Void... voids)
@@ -184,7 +196,26 @@ public class ClosestStation implements GoogleApiClient.OnConnectionFailedListene
         protected void onPostExecute(StationList stationList) {
             super.onPostExecute(stationList);
 
-            String stationName = stationList.getStations().get(0).getName();
+            double minDist = 0;
+            int posMinDist = 0;
+            for(int i=0; i< stationList.getStations().size(); i++)
+            {
+                Number lattitude = stationList.getStations().get(i).getCoordinate().getX();
+                Number longitude = stationList.getStations().get(i).getCoordinate().getY();
+                double x = pow(lattitude.doubleValue() - startingPoint.getX().doubleValue(),2);
+                double y = pow(longitude.doubleValue() - startingPoint.getY().doubleValue(),2);
+                double dist = abs(sqrt(x+y));
+                if(i==0)
+                {
+                    minDist = dist;
+                }
+                else if(dist<minDist)
+                {
+                    minDist = dist;
+                    posMinDist = i;
+                }
+            }
+            String stationName = stationList.getStations().get(posMinDist).getName();
             EditText startLocationText = GetStartLocationText();
             startLocationText.setText(stationName);
 

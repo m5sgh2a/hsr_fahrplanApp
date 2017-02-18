@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import group9.hsr.ch.businesstravelagent.Model.ClosestStation;
 import group9.hsr.ch.businesstravelagent.Model.TransportConnection;
 import group9.hsr.ch.businesstravelagent.Model.TransportDate;
 import group9.hsr.ch.businesstravelagent.Model.TransportSearch;
@@ -22,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private TransportTime transportTime;
     private OppositeDirection oppositeDirection;
     private TransportSearch transportSearch;
+    private ClosestStation closestStation;
 
     public MainActivity() {
         transportDate = new TransportDate(MainActivity.this);
         transportTime = new TransportTime(MainActivity.this);
         oppositeDirection = new OppositeDirection(MainActivity.this);
         transportSearch = new TransportSearch(MainActivity.this);
+        closestStation = new ClosestStation(MainActivity.this);
     }
 
     @Override
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         transportTime.ShowCurrentTimeOnButton();
         oppositeDirection.Register();
         transportSearch.Register();
+        closestStation.Register();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
         myToolbar.setTitleTextAppearance(this, R.style.ActionToolbar);
@@ -64,5 +68,19 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        closestStation.onResume();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        closestStation.onPause();
     }
 }

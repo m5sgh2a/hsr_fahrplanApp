@@ -1,28 +1,33 @@
 package group9.hsr.ch.businesstravelagent.Model;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import group9.hsr.ch.businesstravelagent.Controller.MainActivity;
+
 import group9.hsr.ch.businesstravelagent.R;
+
+import static android.icu.util.Calendar.*;
 
 public class TransportDate {
 
-    private MainActivity mainActivity = null;
+    private Activity activity = null;
     private HelperDate helperDate = new HelperDate();
     private final String dateFormat = "EEE dd.MM.yyyy";
 
-    public TransportDate(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public TransportDate(Activity activity) {
+        this.activity = activity;
     }
 
     private Button GetDateButton() {
-        return (Button) mainActivity.findViewById(R.id.transportDateButton);
+        return (Button) activity.findViewById(R.id.transportDateButton);
     }
 
-    public void ShowCurrentDateOnButton() {;
+    public void ShowCurrentDateOnButton() {
         Calendar calendar = helperDate.GetCurrentDate();
         GetDateButton().setText(helperDate.GetDateFormatted(calendar, dateFormat));
     }
@@ -31,14 +36,15 @@ public class TransportDate {
         final Button dateButton = GetDateButton();
 
         dateButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                final Calendar calendar = getInstance();
+                int year = calendar.get(YEAR);
+                int month = calendar.get(MONTH);
+                int day = calendar.get(DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(mainActivity, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         Calendar calendar = helperDate.CreateDate(year, month, day);

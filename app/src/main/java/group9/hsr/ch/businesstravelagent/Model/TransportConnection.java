@@ -10,26 +10,26 @@ import ch.schoeb.opendatatransport.model.StationList;
 
 public class TransportConnection {
 
-    private IOpenTransportRepository repo;
+    private IOpenTransportRepository repository;
     private ConnectionList connectionList;
     private String startLocation;
     private String endLocation;
 
     private void OpenRepository() {
-        if (repo == null) {
-            repo = OpenTransportRepositoryFactory.CreateOnlineOpenTransportRepository();
+        if (repository == null) {
+            repository = OpenTransportRepositoryFactory.CreateLocalOpenTransportRepository();
         }
     }
 
     private void SearchConnection() {
         try {
-            connectionList = repo.searchConnections(startLocation, endLocation);
+            connectionList = repository.searchConnections(startLocation, endLocation);
         } catch (OpenDataTransportException e) {
             connectionList = null;
         }
     }
 
-    public ConnectionList GetConnection(String startLocation, String endLocation) {
+    ConnectionList GetConnection(String startLocation, String endLocation) {
         OpenRepository();
         SearchConnection();
 

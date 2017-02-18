@@ -10,7 +10,7 @@ import ch.schoeb.opendatatransport.model.StationList;
 
 public class LocalOpenTransportRepository implements IOpenTransportRepository {
     @Override
-    public StationList findStations(String query) {
+    public StationList findStations(String query, String type) {
         ArrayList<Station> stations = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {

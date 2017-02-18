@@ -15,8 +15,9 @@ import ch.schoeb.opendatatransport.model.StationList;
 
 public class OnlineOpenTransportRepository implements IOpenTransportRepository {
     @Override
-    public StationList findStations(String query) throws OpenDataTransportException {
+    public StationList findStations(String query, String type) throws OpenDataTransportException {
         String url = buildFindStationsUrl(query);
+        url = url + "?type=" + type;
         String json = GetJson(url);
 
         Gson gson = new Gson();

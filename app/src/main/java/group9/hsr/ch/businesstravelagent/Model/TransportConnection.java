@@ -17,7 +17,7 @@ public class TransportConnection {
 
     private void OpenRepository() {
         if (repository == null) {
-            repository = OpenTransportRepositoryFactory.CreateLocalOpenTransportRepository();
+            repository = OpenTransportRepositoryFactory.CreateOnlineOpenTransportRepository();
         }
     }
 

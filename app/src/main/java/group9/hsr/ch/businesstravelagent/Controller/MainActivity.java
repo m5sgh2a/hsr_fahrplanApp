@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import group9.hsr.ch.businesstravelagent.Model.Autocomplete;
 import group9.hsr.ch.businesstravelagent.Model.ClosestStation;
 import group9.hsr.ch.businesstravelagent.Model.TransportConnection;
 import group9.hsr.ch.businesstravelagent.Model.TransportDate;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private OppositeDirection oppositeDirection;
     private TransportSearch transportSearch;
     private ClosestStation closestStation;
+    private Autocomplete autocomplete;
 
     public MainActivity() {
         transportDate = new TransportDate(MainActivity.this);
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         oppositeDirection = new OppositeDirection(MainActivity.this);
         transportSearch = new TransportSearch(MainActivity.this);
         closestStation = new ClosestStation(MainActivity.this);
+        autocomplete = new Autocomplete(MainActivity.this);
     }
 
     @Override
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         oppositeDirection.Register();
         transportSearch.Register();
         closestStation.Register();
+        autocomplete.Register();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
         myToolbar.setTitleTextAppearance(this, R.style.ActionToolbar);

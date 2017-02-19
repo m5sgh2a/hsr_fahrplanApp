@@ -12,8 +12,6 @@ public class TransportConnection {
 
     private IOpenTransportRepository repository;
     private ConnectionList connectionList;
-    private String startLocation;
-    private String endLocation;
 
     private void OpenRepository() {
         if (repository == null) {
@@ -21,24 +19,30 @@ public class TransportConnection {
         }
     }
 
-    private void SearchConnection() {
+    private void SearchConnection(TransportSearchParameter parameter) {
+
+        connectionList = new ConnectionList();
+
         try {
-            connectionList = repository.searchConnections(startLocation, endLocation);
+            connectionList = repository.searchConnections(parameter.GetStartLocation(),
+                    parameter.GetEndLocation(),
+                    null,
+                    parameter.GetDate(),
+                    parameter.GetTime(),
+                    parameter.GetIsArrival());
         } catch (OpenDataTransportException e) {
-            connectionList = null;
+        } catch (Exception e) {
         }
     }
 
-    ConnectionList GetConnection(String _startLocation, String _endLocation) {
-        startLocation = _startLocation;
-        endLocation = _endLocation;
+    ConnectionList GetConnection(TransportSearchParameter parameter) {
         OpenRepository();
-        SearchConnection();
+        SearchConnection(parameter);
 
         return connectionList;
     }
 
-    public StationList GetStationName(String location, String type )
+    StationList GetStationName(String location, String type )
     {
         StationList list =null;
         try{

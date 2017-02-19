@@ -62,7 +62,7 @@ class TransportSearchValidate {
         return result;
     }
 
-    boolean AreErrorsAvaialble() {
+    boolean AreErrorsAvailable() {
         return errorMessage.size() > 0;
     }
 }

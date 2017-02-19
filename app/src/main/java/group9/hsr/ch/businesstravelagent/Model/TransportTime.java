@@ -15,23 +15,28 @@ public class TransportTime {
 
     private Activity activity;
     private HelperDate helperDate = new HelperDate();
-    private final String dateFormat = "HH:mm";
+    private final String dateFormatDisplay = "HH:mm";
+    private final String dateFormatSystem = "HH:mm";
 
     public TransportTime(Activity activity) {
         this.activity = activity;
     }
 
-    private Button GetDateButton() {
+    private Button GetTimeButton() {
         return (Button) activity.findViewById(R.id.transportTimeButton);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void ShowCurrentTimeOnButton() {
         Calendar calendar = helperDate.GetCurrentDate();
-        GetDateButton().setText(helperDate.GetDateFormatted(calendar, dateFormat));
+
+        Button timeButton = GetTimeButton();
+        timeButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
+        timeButton.setTag(helperDate.GetDateFormatted(calendar, dateFormatSystem));
     }
 
     public void Register() {
-        final Button timeButton = GetDateButton();
+        final Button timeButton = GetTimeButton();
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -47,7 +52,7 @@ public class TransportTime {
                         Calendar calendar = helperDate.GetCurrentDate();
                         calendar.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, hour, minute, 0);
 
-                        timeButton.setText(helperDate.GetDateFormatted(calendar, dateFormat));
+                        timeButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
                     }
                 }, hour, minute, true);
                 timePickerDialog.show();

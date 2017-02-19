@@ -17,7 +17,8 @@ public class TransportDate {
 
     private Activity activity = null;
     private HelperDate helperDate = new HelperDate();
-    private final String dateFormat = "EEE dd.MM.yyyy";
+    private final String dateFormatDisplay = "EEE dd.MM.yyyy";
+    private final String dateFormatSystem = "yyyy-MM-dd";
 
     public TransportDate(Activity activity) {
         this.activity = activity;
@@ -27,9 +28,13 @@ public class TransportDate {
         return (Button) activity.findViewById(R.id.transportDateButton);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void ShowCurrentDateOnButton() {
         Calendar calendar = helperDate.GetCurrentDate();
-        GetDateButton().setText(helperDate.GetDateFormatted(calendar, dateFormat));
+
+        Button dateButton = GetDateButton();
+        dateButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
+        dateButton.setTag(helperDate.GetDateFormatted(calendar, dateFormatSystem));
     }
 
     public void Register() {
@@ -48,7 +53,7 @@ public class TransportDate {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                         Calendar calendar = helperDate.CreateDate(year, month, day);
-                        dateButton.setText(helperDate.GetDateFormatted(calendar, dateFormat));
+                        dateButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
                     }
                 }, year, month, day);
                 datePickerDialog.show();

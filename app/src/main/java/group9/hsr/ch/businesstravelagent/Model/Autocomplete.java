@@ -28,12 +28,16 @@ public class Autocomplete {
 
     List<String> dropDownList = new ArrayList<String>(){};
 
+    private int threshold = 3;
+
+    private AutoCompleteTextView textView;
+    private ArrayAdapter<String> adapter;
+
     public void Register()
     {
-        final AutoCompleteTextView textView = (AutoCompleteTextView) mainActivity.findViewById(R.id.startLocationText);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_list_item_1,dropDownList);
+        textView = (AutoCompleteTextView) mainActivity.findViewById(R.id.startLocationText);
         textView.setAdapter(adapter);
-        textView.setThreshold(2);
+        textView.setThreshold(threshold);
         textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -48,7 +52,7 @@ public class Autocomplete {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() != 0) {
-                    AutoCompleteWorker worker = new AutoCompleteWorker(s.toString(), adapter);
+                    AutoCompleteWorker worker = new AutoCompleteWorker(s.toString());
                     worker.execute();
                 }
             }
@@ -58,12 +62,10 @@ public class Autocomplete {
     private class AutoCompleteWorker extends AsyncTask<Void, Void, StationList>
     {
         String destination;
-        ArrayAdapter<String> adapter;
 
-        public AutoCompleteWorker(String _destination, ArrayAdapter<String> _adapter )
+        public AutoCompleteWorker(String _destination )
         {
             destination = _destination;
-            adapter = _adapter;
         }
 
         @Override
@@ -85,11 +87,20 @@ public class Autocomplete {
             super.onPostExecute(stationList);
 
             dropDownList.clear();
-            for(int i=0; i< stationList.getStations().size() && i<5; i++)
-            {
-                dropDownList.add( stationList.getStations().get(i).getName() );
+
+            if(destination.length() >= threshold) {
+                for (int i = 0; i < stationList.getStations().size() && i < 5; i++) {
+                    dropDownList.add(stationList.getStations().get(i).getName());
+                }
             }
-            adapter.notifyDataSetChanged();
+
+            mainActivity.runOnUiThread(new Runnable() {
+                public void run() {
+                    adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_list_item_1, dropDownList);
+                    textView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            });
         }
     }
 }

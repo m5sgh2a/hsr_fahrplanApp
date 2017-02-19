@@ -30,15 +30,17 @@ public class Autocomplete {
 
     private int threshold = 3;
 
-    private AutoCompleteTextView textView;
+    private AutoCompleteTextView textViewStart;
+    private AutoCompleteTextView textViewDestination;
     private ArrayAdapter<String> adapter;
 
     public void Register()
     {
-        textView = (AutoCompleteTextView) mainActivity.findViewById(R.id.startLocationText);
-        textView.setAdapter(adapter);
-        textView.setThreshold(threshold);
-        textView.addTextChangedListener(new TextWatcher() {
+        textViewStart = (AutoCompleteTextView) mainActivity.findViewById(R.id.startLocationText);
+        textViewDestination = (AutoCompleteTextView) mainActivity.findViewById(R.id.endLocationText);
+        textViewStart.setThreshold(threshold);
+        textViewDestination.setThreshold(threshold);
+        textViewStart.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 //empty
@@ -52,7 +54,25 @@ public class Autocomplete {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() != 0) {
-                    AutoCompleteWorker worker = new AutoCompleteWorker(s.toString());
+                    AutoCompleteWorker worker = new AutoCompleteWorker(s.toString(), true);
+                    worker.execute();
+                }
+            }
+        });
+        textViewDestination.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() != 0) {
+                    AutoCompleteWorker worker = new AutoCompleteWorker(s.toString(), false);
                     worker.execute();
                 }
             }
@@ -62,10 +82,12 @@ public class Autocomplete {
     private class AutoCompleteWorker extends AsyncTask<Void, Void, StationList>
     {
         String destination;
+        boolean start;
 
-        public AutoCompleteWorker(String _destination )
+        public AutoCompleteWorker(String _destination, boolean _start )
         {
             destination = _destination;
+            start = _start;
         }
 
         @Override
@@ -88,7 +110,7 @@ public class Autocomplete {
 
             dropDownList.clear();
 
-            if(destination.length() >= threshold) {
+            if(destination.length() >= threshold && stationList != null) {
                 for (int i = 0; i < stationList.getStations().size() && i < 5; i++) {
                     dropDownList.add(stationList.getStations().get(i).getName());
                 }
@@ -97,7 +119,13 @@ public class Autocomplete {
             mainActivity.runOnUiThread(new Runnable() {
                 public void run() {
                     adapter = new ArrayAdapter<String>(mainActivity, android.R.layout.simple_list_item_1, dropDownList);
-                    textView.setAdapter(adapter);
+                    if(start) {
+                        textViewStart.setAdapter(adapter);
+                    }
+                    else
+                    {
+                        textViewDestination.setAdapter(adapter);
+                    }
                     adapter.notifyDataSetChanged();
                 }
             });

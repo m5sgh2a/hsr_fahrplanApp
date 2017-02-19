@@ -29,7 +29,9 @@ public class TransportConnection {
         }
     }
 
-    ConnectionList GetConnection(String startLocation, String endLocation) {
+    ConnectionList GetConnection(String _startLocation, String _endLocation) {
+        startLocation = _startLocation;
+        endLocation = _endLocation;
         OpenRepository();
         SearchConnection();
 

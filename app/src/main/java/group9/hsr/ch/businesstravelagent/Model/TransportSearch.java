@@ -57,17 +57,29 @@ public class TransportSearch {
                    "Fehler",
                    validateSearch.GetErrorMessageAsOneString(),
                    activity);
-        } else {
-            new SearchWorker().execute();
+        }
+        else
+        {
+            SearchWorker worker = new SearchWorker(GetStartLocationText().getText().toString(), GetEndLocationText().getText().toString());
+            worker.execute();
         }
     }
 
     private class SearchWorker extends AsyncTask<Void, Void, Void> {
 
+        private String startLocation;
+        private String destination;
+
+        public SearchWorker(String _startLocation, String _destination)
+        {
+            startLocation = _startLocation;
+            destination = _destination;
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
             TransportConnection transportConnection = new TransportConnection();
-            ConnectionList result = transportConnection.GetConnection("Buchs SG", "Zürich HB");
+            ConnectionList result = transportConnection.GetConnection(startLocation, destination);
 
 
             if ((result == null) || (result.getConnections().size() == 0)) {

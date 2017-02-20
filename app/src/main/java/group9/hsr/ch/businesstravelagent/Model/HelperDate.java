@@ -5,9 +5,9 @@ import android.icu.util.Calendar;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
-class HelperDate {
+public class HelperDate {
     @RequiresApi(api = Build.VERSION_CODES.N)
-    Calendar CreateDate(int year, int month, int day) {
+    public Calendar CreateDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
 
@@ -15,14 +15,14 @@ class HelperDate {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    String GetDateFormatted(Calendar calendar, String format) {
+    public String GetDateFormatted(Calendar calendar, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
 
         return dateFormat.format(calendar);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    Calendar GetCurrentDate() {
+    public Calendar GetCurrentDate() {
         return Calendar.getInstance();
     }
 }

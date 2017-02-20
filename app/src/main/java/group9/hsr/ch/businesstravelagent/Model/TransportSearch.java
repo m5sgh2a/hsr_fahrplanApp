@@ -103,7 +103,7 @@ public class TransportSearch {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            //"Buchs SG", "Zürich HB"
+
             result = transportConnection.GetConnection(searchParameter);
 
             return null;

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BusinessTravelAgent.iml" filepath="$PROJECT_DIR$/BusinessTravelAgent.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hsr_fahrplanApp.iml" filepath="$PROJECT_DIR$/hsr_fahrplanApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/opendatatransport/opendatatransport.iml" filepath="$PROJECT_DIR$/opendatatransport/opendatatransport.iml" />
     </modules>
   </component>

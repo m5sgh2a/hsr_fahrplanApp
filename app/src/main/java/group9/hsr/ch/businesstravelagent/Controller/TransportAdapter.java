@@ -49,22 +49,38 @@ public class TransportAdapter extends BaseAdapter {
 
         Connection connection = (Connection) getItem(position);
 
-        TextView connectionId = (TextView) view.findViewById(R.id.connectionId);
-        connectionId.setText((position + 1) + "");
-
-        TextView startTime = (TextView) view.findViewById(R.id.startTimeText);
-        startTime.setText(connection.getFrom().getDeparture());
-
-        TextView startLocation = (TextView) view.findViewById(R.id.startLocationText);
-        startLocation.setText(connection.getFrom().getLocation().getName().toString());
-
-        TextView endLocation = (TextView) view.findViewById(R.id.endLocationText);
-        endLocation.setText(connection.getTo().getLocation().getName().toString());
-
-        TextView productClass = (TextView) view.findViewById(R.id.productText);
-        productClass.setText(ConcatAllProducts(connection.getProducts()));
+        SetConnectionIdText(position, view);
+        SetStartTimeText(connection, view);
+        SetStartLocationText(connection, view);
+        SetEndLocationText(connection, view);
+        SetProductText(connection, view);
 
         return view;
+    }
+
+    private void SetConnectionIdText(int position, View view) {
+        TextView connectionId = (TextView) view.findViewById(R.id.connectionId);
+        connectionId.setText((position + 1) + "");
+    }
+
+    private void SetStartTimeText(Connection connection, View view) {
+        TextView startTime = (TextView) view.findViewById(R.id.startTimeText);
+        startTime.setText(connection.getFrom().getDeparture());
+    }
+
+    private void SetStartLocationText(Connection connection, View view) {
+        TextView startLocation = (TextView) view.findViewById(R.id.startLocationText);
+        startLocation.setText(connection.getFrom().getLocation().getName().toString());
+    }
+
+    private void SetEndLocationText(Connection connection, View view) {
+        TextView endLocation = (TextView) view.findViewById(R.id.endLocationText);
+        endLocation.setText(connection.getTo().getLocation().getName().toString());
+    }
+
+    private void SetProductText(Connection connection, View view) {
+        TextView productClass = (TextView) view.findViewById(R.id.productText);
+        productClass.setText(ConcatAllProducts(connection.getProducts()));
     }
 
     private String ConcatAllProducts(List products) {

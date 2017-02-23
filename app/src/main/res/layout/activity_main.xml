@@ -14,8 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,14 +25,15 @@
             <RelativeLayout
                 android:layout_width="36dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp">
+                android:layout_marginEnd="10dp">
 
                 <ImageButton
                     android:id="@+id/oppositeDirectionButton"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/ic_oppositedirection" />
+                    android:background="@drawable/ic_oppositedirection"
+                    android:contentDescription="swap station" />
             </RelativeLayout>
 
             <LinearLayout
@@ -51,7 +52,7 @@
                         android:id="@+id/startLocationText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="2"
                         android:ellipsize="end"
                         android:hint="Start"
@@ -63,7 +64,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:drawableLeft="@drawable/ic_nextstation"
+                        android:drawableStart="@drawable/ic_nextstation"
                         android:text="In Nähe" />
                 </LinearLayout>
 
@@ -90,7 +91,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:drawableLeft="@drawable/ic_date"
+                android:drawableStart="@drawable/ic_date"
                 android:text="Datum" />
 
             <Button
@@ -98,34 +99,47 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:drawableLeft="@drawable/ic_time"
+                android:drawableStart="@drawable/ic_time"
                 android:text="Zeit" />
 
             <ToggleButton
                 android:id="@+id/arrivalToggle"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:checked="true"
                 android:textOff="An"
                 android:textOn="Ab" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/transportSearchButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:drawableLeft="@drawable/ic_search"
-            android:text="Suchen"
-            android:textStyle="bold"></Button>
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/transportSearchButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_search"
+                android:text="Suchen"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/transportSearchLaterConnectionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_right_arrow"
+                android:text="Später" />
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/transportSearchProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/transportConnectionListView"

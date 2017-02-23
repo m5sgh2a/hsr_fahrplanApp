@@ -28,11 +28,16 @@ public class TransportTime {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void ShowCurrentTimeOnButton() {
-        Calendar calendar = helperDate.GetCurrentDate();
+        Calendar currentDate = helperDate.GetCurrentDate();
+        SetTime(currentDate);
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    void SetTime(Calendar date) {
         Button timeButton = GetTimeButton();
-        timeButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
-        timeButton.setTag(helperDate.GetDateFormatted(calendar, dateFormatSystem));
+        timeButton.setText(helperDate.GetDateFormatted(date, dateFormatDisplay));
+        timeButton.setTag(helperDate.GetDateFormatted(date, dateFormatSystem));
     }
 
     public void Register() {
@@ -53,6 +58,7 @@ public class TransportTime {
                         calendar.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, hour, minute, 0);
 
                         timeButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
+                        timeButton.setTag(helperDate.GetDateFormatted(calendar, dateFormatSystem));
                     }
                 }, hour, minute, true);
                 timePickerDialog.show();

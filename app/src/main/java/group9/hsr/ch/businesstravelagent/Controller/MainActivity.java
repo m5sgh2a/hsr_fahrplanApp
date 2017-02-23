@@ -2,7 +2,9 @@ package group9.hsr.ch.businesstravelagent.Controller;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.Toolbar;
@@ -11,13 +13,14 @@ import android.view.MenuItem;
 
 import group9.hsr.ch.businesstravelagent.Model.Autocomplete;
 import group9.hsr.ch.businesstravelagent.Model.ClosestStation;
-import group9.hsr.ch.businesstravelagent.Model.TransportConnection;
 import group9.hsr.ch.businesstravelagent.Model.TransportDate;
 import group9.hsr.ch.businesstravelagent.Model.TransportSearch;
+import group9.hsr.ch.businesstravelagent.Model.TransportSearchLaterConnection;
 import group9.hsr.ch.businesstravelagent.Model.TransportTime;
 import group9.hsr.ch.businesstravelagent.Model.OppositeDirection;
 import group9.hsr.ch.businesstravelagent.R;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
     private TransportDate transportDate;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TransportSearch transportSearch;
     private ClosestStation closestStation;
     private Autocomplete autocomplete;
+    private TransportSearchLaterConnection transportSearchLaterConnection;
 
     public MainActivity() {
         transportDate = new TransportDate(MainActivity.this);
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         transportSearch = new TransportSearch(MainActivity.this);
         closestStation = new ClosestStation(MainActivity.this);
         autocomplete = new Autocomplete(MainActivity.this);
+        transportSearchLaterConnection = new TransportSearchLaterConnection(MainActivity.this);
     }
 
     @Override
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         transportSearch.Register();
         closestStation.Register();
         autocomplete.Register();
+        transportSearchLaterConnection.Register();
+        transportSearchLaterConnection.DisableButton();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_menu);
         myToolbar.setTitleTextAppearance(this, R.style.ActionToolbar);
@@ -75,15 +82,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         closestStation.onResume();
     }
 
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         closestStation.onPause();
     }

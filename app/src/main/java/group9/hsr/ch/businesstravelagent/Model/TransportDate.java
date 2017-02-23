@@ -30,11 +30,16 @@ public class TransportDate {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void ShowCurrentDateOnButton() {
-        Calendar calendar = helperDate.GetCurrentDate();
+        Calendar date = helperDate.GetCurrentDate();
+        SetDate(date);
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    void SetDate(Calendar date)
+    {
         Button dateButton = GetDateButton();
-        dateButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
-        dateButton.setTag(helperDate.GetDateFormatted(calendar, dateFormatSystem));
+        dateButton.setText(helperDate.GetDateFormatted(date, dateFormatDisplay));
+        dateButton.setTag(helperDate.GetDateFormatted(date, dateFormatSystem));
     }
 
     public void Register() {
@@ -52,8 +57,8 @@ public class TransportDate {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        Calendar calendar = helperDate.CreateDate(year, month, day);
-                        dateButton.setText(helperDate.GetDateFormatted(calendar, dateFormatDisplay));
+                        Calendar date = helperDate.CreateDate(year, month, day);
+                        SetDate(date);
                     }
                 }, year, month, day);
                 datePickerDialog.show();

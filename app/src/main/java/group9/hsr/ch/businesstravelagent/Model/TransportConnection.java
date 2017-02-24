@@ -1,14 +1,12 @@
 package group9.hsr.ch.businesstravelagent.Model;
 
-import android.location.Location;
-
 import ch.schoeb.opendatatransport.IOpenTransportRepository;
 import ch.schoeb.opendatatransport.OpenDataTransportException;
 import ch.schoeb.opendatatransport.OpenTransportRepositoryFactory;
 import ch.schoeb.opendatatransport.model.ConnectionList;
 import ch.schoeb.opendatatransport.model.StationList;
 
-public class TransportConnection {
+class TransportConnection {
 
     private IOpenTransportRepository repository;
     private ConnectionList connectionList;
@@ -30,8 +28,8 @@ public class TransportConnection {
                     parameter.GetDate(),
                     parameter.GetTime(),
                     parameter.GetIsArrival());
-        } catch (OpenDataTransportException e) {
         } catch (Exception e) {
+            //do nothing
         }
     }
 
@@ -42,15 +40,13 @@ public class TransportConnection {
         return connectionList;
     }
 
-    StationList GetStationName(String location, String type )
-    {
-        StationList list =null;
-        try{
+    StationList GetStationName(String location, String type) {
+        StationList list = null;
+
+        try {
             OpenRepository();
             list = repository.findStations(location, type);
-        }
-        catch(OpenDataTransportException e)
-        {
+        } catch (OpenDataTransportException e) {
             //do nothing
         }
         return list;

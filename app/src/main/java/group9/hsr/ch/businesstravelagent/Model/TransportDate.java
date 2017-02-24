@@ -13,6 +13,7 @@ import group9.hsr.ch.businesstravelagent.R;
 
 import static android.icu.util.Calendar.*;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class TransportDate {
 
     private Activity activity = null;
@@ -28,13 +29,11 @@ public class TransportDate {
         return (Button) activity.findViewById(R.id.transportDateButton);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void ShowCurrentDateOnButton() {
         Calendar date = helperDate.GetCurrentDate();
         SetDate(date);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     void SetDate(Calendar date)
     {
         Button dateButton = GetDateButton();

@@ -1,14 +1,14 @@
 package group9.hsr.ch.businesstravelagent.Model;
 
 
-class TransportSearchParameter {
+public class TransportSearchParameter {
     private String startLocation = "";
     private String endLocation = "";
     private String date = "";
     private String time = "";
     private Boolean isArrival = false;
 
-    TransportSearchParameter(String startLocation,
+    public TransportSearchParameter(String startLocation,
                                     String endLocation,
                                     String date,
                                     String time,
@@ -21,23 +21,23 @@ class TransportSearchParameter {
         this.isArrival = isArrival;
     }
 
-    String GetStartLocation() {
+    public String GetStartLocation() {
         return this.startLocation;
     }
 
-    String GetEndLocation() {
+    public String GetEndLocation() {
         return this.endLocation;
     }
 
-    String GetDate() {
+    public String GetDate() {
         return this.date;
     }
 
-    String GetTime() {
+    public String GetTime() {
         return this.time;
     }
 
-    Boolean GetIsArrival() {
+    public Boolean GetIsArrival() {
         return this.isArrival;
     }
 }
